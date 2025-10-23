@@ -46,4 +46,7 @@ public class VentanaPrincipal extends JFrame {
     public JButton getBtnGenerar() { return btnGenerar; }
     public JButton getBtnResolver() { return btnResolver; }
     public JButton getBtnLimpiar() { return btnLimpiar; }
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
 }
