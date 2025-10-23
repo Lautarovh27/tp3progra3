@@ -55,20 +55,19 @@ public class ControladorSudoku implements ActionListener, Observador {
 
     @Override
     public void actualizar(String evento, Object data) {
-        SwingUtilities.invokeLater(() -> {
-            switch (evento) {
-                case "inicioResolucion" ->
-                    vista.mostrarMensaje("⏳ Resolviendo Sudoku...");
-                case "progreso" ->
-                    vista.getPanelSudoku().mostrarValores((int[][]) data);
-                case "finResolucion" -> {
-                    boolean exito = (boolean) data;
-                    if (exito)
-                        vista.mostrarMensaje("✅ Sudoku resuelto correctamente.");
-                    else
-                        vista.mostrarMensaje("❌ No existe solución.");
-                }
+        switch (evento) {
+            case "inicioResolucion" ->  vista.mostrarEstado(" ");
+            case "progreso" -> vista.getPanelSudoku().mostrarValores((int[][]) data);
+            case "finResolucion" -> {
+                boolean exito = (boolean) data;
+                if (exito)
+                    vista.mostrarMensaje("✅ Sudoku resuelto correctamente.");
+                else
+                    vista.mostrarMensaje("❌ No existe solución.");
+                vista.mostrarEstado(" "); // limpiar el estado
             }
-        });
+
+        }
     }
+
 }
