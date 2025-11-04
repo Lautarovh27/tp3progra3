@@ -11,31 +11,27 @@ public class VentanaPrincipal extends JFrame {
     private JLabel lblEstado, lblTitulo;
 
     public VentanaPrincipal() {
-        setTitle("🧩 Resolver Sudoku");
+        setTitle("Resolver Sudoku");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 700);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 0));
 
-        inicializarComponentes(); // 🔹 Método separado para crear la interfaz
+        inicializarComponentes(); 
     }
 
-    /** 
-     * Inicializa y organiza todos los componentes visuales de la ventana.
-     */
+   
     private void inicializarComponentes() {
         add(crearPanelSuperior(), BorderLayout.NORTH);
         add(crearPanelCentral(), BorderLayout.CENTER);
         add(crearPanelBotones(), BorderLayout.SOUTH);
     }
 
-    /** 
-     * Crea el panel superior con el título y el estado.
-     */
+    
     private JPanel crearPanelSuperior() {
         JPanel panelSuperior = new JPanel(new BorderLayout());
 
-        lblTitulo = new JLabel("🧩 SUDOKU", SwingConstants.CENTER);
+        lblTitulo = new JLabel("SUDOKU", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
@@ -49,17 +45,13 @@ public class VentanaPrincipal extends JFrame {
         return panelSuperior;
     }
 
-    /** 
-     * Crea el panel central con la grilla del Sudoku.
-     */
+   
     private JPanel crearPanelCentral() {
         panelSudoku = new PanelSudoku();
         return panelSudoku;
     }
 
-    /** 
-     * Crea el panel inferior con los botones.
-     */
+  
     private JPanel crearPanelBotones() {
         JPanel panelBotones = new JPanel(new FlowLayout());
 
@@ -74,7 +66,7 @@ public class VentanaPrincipal extends JFrame {
         return panelBotones;
     }
 
-    // 🔹 Getters y métodos de interacción con el controlador
+
     public PanelSudoku getPanelSudoku() { return panelSudoku; }
 
     public void setControlador(ActionListener controlador) {

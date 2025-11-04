@@ -13,7 +13,6 @@ public class Sudoku extends Observado {
     }
 
     public void resolverAsync() {
-        // Simula un proceso asíncrono para no congelar la GUI
         new Thread(() -> {
             notificar("inicioResolucion", null);
             boolean exito = resolver();

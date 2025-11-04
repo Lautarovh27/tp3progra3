@@ -18,11 +18,11 @@ public class PanelSudoku extends JPanel {
                 campo.setHorizontalAlignment(JTextField.CENTER);
                 campo.setFont(new Font("Arial", Font.BOLD, 20));
 
-                // 🔹 Validar entrada: solo dígitos 1-9
+               
                 ((AbstractDocument) campo.getDocument())
                         .setDocumentFilter(new FiltroNumerico());
 
-                // 🔹 Colorear subgrillas alternadas
+                
                 if ((fila / 3 + col / 3) % 2 == 0)
                     campo.setBackground(new Color(235, 235, 235));
 
@@ -32,7 +32,6 @@ public class PanelSudoku extends JPanel {
         }
     }
 
-    // 🔸 Devuelve una matriz con los valores ingresados
     public int[][] obtenerValores() {
         int[][] valores = new int[9][9];
         for (int i = 0; i < 9; i++) {
@@ -44,7 +43,7 @@ public class PanelSudoku extends JPanel {
         return valores;
     }
 
-    // 🔸 Muestra los valores en la grilla
+   
     public void mostrarValores(int[][] valores) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -53,14 +52,14 @@ public class PanelSudoku extends JPanel {
         }
     }
 
-    // 🔸 Limpia todas las celdas
+  
     public void limpiar() {
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
                 celdas[i][j].setText("");
     }
 
-    // 🔹 Clase interna para validar entrada
+  
     private static class FiltroNumerico extends DocumentFilter {
         @Override
         public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
@@ -75,7 +74,7 @@ public class PanelSudoku extends JPanel {
             } else if (nuevoTexto.length() <= 1 && nuevoTexto.matches("[1-9]")) {
                 super.replace(fb, offset, length, text, attrs);
             }
-            // ❌ Si no cumple, se ignora (no se escribe)
+           
         }
 
         @Override

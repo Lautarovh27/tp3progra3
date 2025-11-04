@@ -9,16 +9,11 @@ public class GeneradorSudoku {
 
     private static final int SIZE = 9;
 
-    /**
-     * Genera una grilla de Sudoku válida con una cantidad específica de valores prefijados.
-     * @param cantidadPrefijados número de celdas visibles (1–81)
-     * @return matriz 9x9 con los valores iniciales
-     */
     public static int[][] generar(int cantidadPrefijados) {
         int[][] tableroCompleto = new int[SIZE][SIZE];
         llenarTablero(tableroCompleto);
 
-        // Quitar valores para dejar solo los prefijados
+    
         int[][] tablero = copiarMatriz(tableroCompleto);
         int quitar = 81 - cantidadPrefijados;
         Random rand = new Random();
@@ -34,9 +29,6 @@ public class GeneradorSudoku {
         return tablero;
     }
 
-    /**
-     * Llena un tablero vacío con una solución válida de Sudoku usando backtracking.
-     */
     private static boolean llenarTablero(int[][] tablero) {
         for (int fila = 0; fila < SIZE; fila++) {
             for (int col = 0; col < SIZE; col++) {
@@ -53,12 +45,10 @@ public class GeneradorSudoku {
                 }
             }
         }
-        return true; // tablero completo
+        return true; 
     }
 
-    /**
-     * Genera una lista de números del 1 al 9 en orden aleatorio.
-     */
+   
     private static List<Integer> numerosAleatorios() {
         List<Integer> numeros = new ArrayList<>();
         for (int i = 1; i <= SIZE; i++) numeros.add(i);
@@ -66,9 +56,7 @@ public class GeneradorSudoku {
         return numeros;
     }
 
-    /**
-     * Valida si se puede colocar un número en una posición dada.
-     */
+ 
     private static boolean esValido(int[][] tablero, int fila, int col, int num) {
         for (int c = 0; c < SIZE; c++)
             if (tablero[fila][c] == num) return false;
