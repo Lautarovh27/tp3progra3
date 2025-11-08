@@ -40,6 +40,30 @@ public class Sudoku extends Observado {
         }
         return true;
     }
+    
+    public boolean intentarColocarNumero(int fila, int col, int valor) {
+        if (valor == 0) {
+            tablero[fila][col] = 0;
+            return true;
+        }
+        int anterior = tablero[fila][col];
+        tablero[fila][col] = 0;
+        
+        boolean valido = SudokuUtils.esValido(tablero, fila, col, valor);
+        
+        tablero[fila][col] = anterior;
+
+    
+        if (valido) {
+            tablero[fila][col] = valor;
+            return true;
+        }
+        return false;
+    }
+    
+    public int[][] getEstadoActual() {
+        return SudokuUtils.copiarMatriz(tablero);
+    }
 
     public boolean esValidoInicial() {
         for (int fila = 0; fila < 9; fila++) {
@@ -56,3 +80,5 @@ public class Sudoku extends Observado {
         return true;
     }
 }
+
+

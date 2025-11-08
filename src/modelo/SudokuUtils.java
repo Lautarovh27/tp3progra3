@@ -4,9 +4,7 @@ public class SudokuUtils {
 
     private static final int SIZE = 9;
 
-    private SudokuUtils() {
-        // Evita instanciación
-    }
+    private SudokuUtils() {}
 
     public static boolean esValido(int[][] tablero, int fila, int col, int num) {
         for (int c = 0; c < SIZE; c++)

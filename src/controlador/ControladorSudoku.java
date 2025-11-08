@@ -20,6 +20,20 @@ public class ControladorSudoku implements ActionListener, Observador {
         vista.setControlador(this);
     }
 
+    public void numeroIngresado(int fila, int col, int valor) {
+        if (modelo == null) {
+            modelo = new Sudoku(vista.getPanelSudoku().obtenerValores());
+        }
+
+        boolean valido = modelo.intentarColocarNumero(fila, col, valor);
+
+        if (!valido) {
+            vista.getPanelSudoku().mostrarMensajeError("⚠️ El número ya existe en la fila, columna o subgrilla");
+        } else {
+            vista.getPanelSudoku().limpiarMensajeError();
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
@@ -39,10 +53,13 @@ public class ControladorSudoku implements ActionListener, Observador {
 
         } else if (src == vista.getBtnGenerar()) {
             String input = JOptionPane.showInputDialog(vista, "Ingrese cantidad de valores prefijados (1–81):");
+            if (input == null || input.isBlank()) return;
             try {
                 int n = Integer.parseInt(input);
                 if (n < 1 || n > 81) throw new NumberFormatException();
                 int[][] generado = GeneradorSudoku.generar(n);
+                modelo = new Sudoku(generado);
+                modelo.agregarObservador(this);
                 panel.mostrarValores(generado);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(vista, "Ingrese un número válido entre 1 y 81.");
@@ -50,24 +67,24 @@ public class ControladorSudoku implements ActionListener, Observador {
 
         } else if (src == vista.getBtnLimpiar()) {
             panel.limpiar();
+            panel.limpiarMensajeError();
+            modelo = null;
         }
     }
 
     @Override
     public void actualizar(String evento, Object data) {
         switch (evento) {
-            case "inicioResolucion" ->  vista.mostrarEstado(" ");
+            case "inicioResolucion" -> vista.mostrarEstado("Resolviendo Sudoku...");
             case "progreso" -> vista.getPanelSudoku().mostrarValores((int[][]) data);
             case "finResolucion" -> {
                 boolean exito = (boolean) data;
                 if (exito)
-                    vista.mostrarMensaje("Sudoku resuelto correctamente.");
+                    vista.mostrarMensaje("✅ Sudoku resuelto correctamente.");
                 else
-                    vista.mostrarMensaje("No existe solución.");
-                vista.mostrarEstado(" "); // limpiar el estado
+                    vista.mostrarMensaje("❌ No existe solución.");
+                vista.mostrarEstado(" ");
             }
-
         }
     }
-
 }
