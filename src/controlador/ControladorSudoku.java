@@ -31,7 +31,7 @@ public class ControladorSudoku implements ActionListener, Observador {
             modelo.agregarObservador(this);
 
             if (!modelo.esValidoInicial()) {
-                JOptionPane.showMessageDialog(vista, "⚠️ El Sudoku tiene valores inválidos.");
+                JOptionPane.showMessageDialog(vista, "El Sudoku tiene valores inválidos.");
                 return;
             }
 
@@ -61,9 +61,9 @@ public class ControladorSudoku implements ActionListener, Observador {
             case "finResolucion" -> {
                 boolean exito = (boolean) data;
                 if (exito)
-                    vista.mostrarMensaje("✅ Sudoku resuelto correctamente.");
+                    vista.mostrarMensaje("Sudoku resuelto correctamente.");
                 else
-                    vista.mostrarMensaje("❌ No existe solución.");
+                    vista.mostrarMensaje("No existe solución.");
                 vista.mostrarEstado(" "); // limpiar el estado
             }
 
