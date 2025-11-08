@@ -32,17 +32,24 @@ public class PanelSudoku extends JPanel {
                 campo.getDocument().addDocumentListener(new DocumentListener() {
                     @Override
                     public void insertUpdate(DocumentEvent e) { notificarCambio(); }
+
                     @Override
                     public void removeUpdate(DocumentEvent e) { notificarCambio(); }
+
                     @Override
                     public void changedUpdate(DocumentEvent e) {}
 
                     private void notificarCambio() {
-                        if (controlador != null && !campo.getText().isEmpty()) {
-                            try {
-                                int valor = Integer.parseInt(campo.getText());
-                                controlador.numeroIngresado(f, c, valor);
-                            } catch (NumberFormatException ignored) {}
+                        if (controlador != null) {
+                            String texto = campo.getText().trim();
+                            int valor = 0;
+
+                            if (!texto.isEmpty()) {
+                                try {
+                                    valor = Integer.parseInt(texto);
+                                } catch (NumberFormatException ignored) {}
+                            }
+                            controlador.numeroIngresado(f, c, valor);
                         }
                     }
                 });
@@ -115,16 +122,27 @@ public class PanelSudoku extends JPanel {
 
     public void mostrarMensajeError(String mensaje) {
         lblMensajeError.setText(mensaje);
-     
-        Timer timer = new Timer(10000, e -> lblMensajeError.setText(" "));
-        timer.setRepeats(false);
-        timer.start();
     }
 
     public void limpiarMensajeError() {
         lblMensajeError.setText(" ");
     }
+    
+    public void actualizarDesdeMatriz(int[][] matriz) {
+        for (int fila = 0; fila < 9; fila++) {
+            for (int col = 0; col < 9; col++) {
+                int valor = matriz[fila][col];
+                JTextField celda = celdas[fila][col];
+                String textoActual = celda.getText();
 
+                String nuevoTexto = valor == 0 ? "" : String.valueOf(valor);
+                if (!textoActual.equals(nuevoTexto)) {
+                    celda.setText(nuevoTexto);
+                }
+            }
+        }
+    }
+    
     private static class FiltroNumerico extends DocumentFilter {
         @Override
         public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)

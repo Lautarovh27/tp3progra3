@@ -3,6 +3,8 @@ package modelo;
 public class Sudoku extends Observado {
 
     private int[][] tablero;
+    private int[][] ultimoTableroNotificado;
+  
 
     public Sudoku(int[][] tableroInicial) {
         this.tablero = tableroInicial;
@@ -12,25 +14,26 @@ public class Sudoku extends Observado {
         return tablero;
     }
 
-    public void resolverAsync() {
-        new Thread(() -> {
-            notificar("inicioResolucion", null);
-            boolean exito = resolver();
-            notificar("finResolucion", exito);
-        }).start();
+ 
+
+    public boolean resolver() {
+        notificar("inicioResolucion", null);
+
+        boolean exito = resolverRecursivo();
+
+        notificar("finResolucion", exito);
+        return exito;
     }
 
-    private boolean resolver() {
+    private boolean resolverRecursivo() {
         for (int fila = 0; fila < 9; fila++) {
             for (int col = 0; col < 9; col++) {
                 if (tablero[fila][col] == 0) {
                     for (int num = 1; num <= 9; num++) {
                         if (SudokuUtils.esValido(tablero, fila, col, num)) {
                             tablero[fila][col] = num;
-                            if (resolver()) {
-                                notificar("progreso", SudokuUtils.copiarMatriz(tablero));
-                                return true;
-                            }
+                            notificar("progreso", SudokuUtils.copiarMatriz(tablero)); // opcional: reducir frecuencia
+                            if (resolverRecursivo()) return true;
                             tablero[fila][col] = 0;
                         }
                     }
@@ -79,6 +82,7 @@ public class Sudoku extends Observado {
         }
         return true;
     }
+
 }
 
 

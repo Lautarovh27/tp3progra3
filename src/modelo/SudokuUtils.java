@@ -28,4 +28,20 @@ public class SudokuUtils {
             System.arraycopy(original[i], 0, copia[i], 0, SIZE);
         return copia;
     }
+    
+    public static boolean esTableroValido(int[][] tablero) {
+        for (int fila = 0; fila < 9; fila++) {
+            for (int col = 0; col < 9; col++) {
+                int valor = tablero[fila][col];
+                if (valor != 0) {
+                    tablero[fila][col] = 0; // lo saco temporalmente
+                    boolean valido = esValido(tablero, fila, col, valor);
+                    tablero[fila][col] = valor;
+                    if (!valido) return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
