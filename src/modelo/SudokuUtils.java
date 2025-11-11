@@ -34,7 +34,7 @@ public class SudokuUtils {
             for (int col = 0; col < 9; col++) {
                 int valor = tablero[fila][col];
                 if (valor != 0) {
-                    tablero[fila][col] = 0; // lo saco temporalmente
+                    tablero[fila][col] = 0; 
                     boolean valido = esValido(tablero, fila, col, valor);
                     tablero[fila][col] = valor;
                     if (!valido) return false;

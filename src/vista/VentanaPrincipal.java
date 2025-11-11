@@ -30,7 +30,7 @@ public class VentanaPrincipal extends JFrame {
     private JPanel crearPanelSuperior() {
         JPanel panelSuperior = new JPanel(new BorderLayout());
 
-        lblTitulo = new JLabel("🧩 SUDOKU", SwingConstants.CENTER);
+        lblTitulo = new JLabel("SUDOKU", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
@@ -79,7 +79,7 @@ public class VentanaPrincipal extends JFrame {
         btnResolver.addActionListener(controlador);
         btnLimpiar.addActionListener(controlador);
 
-        // 🔧 importante: conectar también el PanelSudoku
+       
         if (controlador instanceof ControladorSudoku cs) {
             panelSudoku.setControlador(cs);
         }

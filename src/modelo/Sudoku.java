@@ -32,7 +32,7 @@ public class Sudoku extends Observado {
                     for (int num = 1; num <= 9; num++) {
                         if (SudokuUtils.esValido(tablero, fila, col, num)) {
                             tablero[fila][col] = num;
-                            notificar("progreso", SudokuUtils.copiarMatriz(tablero)); // opcional: reducir frecuencia
+                            notificar("progreso", SudokuUtils.copiarMatriz(tablero)); 
                             if (resolverRecursivo()) return true;
                             tablero[fila][col] = 0;
                         }

@@ -34,7 +34,7 @@ public class ControladorSudoku implements ActionListener, Observador {
         boolean valido = SudokuUtils.esTableroValido(estadoActual);
 
         if (!valido) {
-            vista.getPanelSudoku().mostrarMensajeError("❗ El número ya existe en la fila, columna o subgrilla.");
+            vista.getPanelSudoku().mostrarMensajeError("El número ya existe en la fila, columna o subgrilla.");
         } else {
             vista.getPanelSudoku().limpiarMensajeError();
         }
@@ -95,7 +95,7 @@ else if (src == vista.getBtnLimpiar()) {
     @Override
     public void actualizar(String evento, Object data) {
         switch (evento) {
-            case "inicioResolucion" -> vista.mostrarEstado("🧩 Resolviendo Sudoku...");
+            case "inicioResolucion" -> vista.mostrarEstado("Resolviendo Sudoku...");
             case "progreso" -> vista.getPanelSudoku().actualizarDesdeMatriz((int[][]) data);
             case "finResolucion" -> {
                 boolean exito = (boolean) data;
